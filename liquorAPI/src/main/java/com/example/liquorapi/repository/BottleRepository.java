@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface BottleRepository extends JpaRepository<Bottle, Long> {
     Bottle findByName(String bottleName);
+    List<Bottle> findByDistributorId(Long distributorId);
 }
