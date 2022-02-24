@@ -1,4 +1,6 @@
 package com.example.liquorapi.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,14 +24,20 @@ public class Bottle {
 
     @Column
     private int endingInventory;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "distributor_id")
+    private Distributor distributor;
+
 //Constructor for Bottle table
-    public Bottle(Long id, String name, int startingInventory, int bottlesReceived, int endingInventory) {
-        this.id = id;
-        this.name = name;
-        this.startingInventory = startingInventory;
-        this.bottlesReceived = bottlesReceived;
-        this.endingInventory = endingInventory;
-    }
+//    public Bottle(Long id, String name, int startingInventory, int bottlesReceived, int endingInventory) {
+//        this.id = id;
+//        this.name = name;
+//        this.startingInventory = startingInventory;
+//        this.bottlesReceived = bottlesReceived;
+//        this.endingInventory = endingInventory;
+//    }
 
     public Bottle() {
     }
@@ -72,6 +80,14 @@ public class Bottle {
 
     public void setEndingInventory(int endingInventory) {
         this.endingInventory = endingInventory;
+    }
+
+    public Distributor getDistributor(){
+        return distributor;
+    }
+
+    public void setDistributor(Distributor distributor) {
+        this.distributor = distributor;
     }
 
     @Override

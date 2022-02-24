@@ -1,14 +1,15 @@
 package com.example.liquorapi.controller;
 import com.example.liquorapi.model.Distributor;
-
+import com.example.liquorapi.model.Bottle;
 import com.example.liquorapi.service.DistributorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
 @RestController
 @RequestMapping(path = "/api")
 public class DistributorController {
@@ -31,7 +32,7 @@ private DistributorService distributorService;
         return distributorService.getDistributor(distributorId);
     }
 
-    @PostMapping("/distributor/")
+    @PostMapping("/distributor")
     public Distributor createDistributor(@RequestBody Distributor distributorObject) {
         System.out.println("Create distributor called.");
         return distributorService.createDistributor(distributorObject);
@@ -47,6 +48,44 @@ private DistributorService distributorService;
     public Optional<Distributor> deleteDistributor(@PathVariable(value = "distributorId") Long distributorId){
         System.out.println("Delete distributor called.");
         return distributorService.deleteDistributor(distributorId);
+    }
+
+    @GetMapping("/distributor/{distributorId}/bottles")
+    public List<Bottle> getDistributorBottles(@PathVariable(value = "distributorId") Long distributorId) {
+        System.out.println("calling getDistributorBottles.");
+        return distributorService.getDistributorBottles(distributorId);
+    }
+
+    @GetMapping("/distributor/{distributorId}/bottles/{bottleId}")
+    public Bottle getDistributorBottle(
+            @PathVariable(value = "distributorId") Long distributorId, @PathVariable(value = "bottleId") Long bottleId) {
+        System.out.println("calling getDistributorBottle.");
+        return distributorService.getDistributorBottle(distributorId, bottleId);
+    }
+
+    @PostMapping("/distributor/{distributorId}/bottles")
+    public Bottle createDistributorBottle(
+            @PathVariable(value = "distributorId") Long distributorId, @RequestBody Bottle bottleObject) {
+        System.out.println("calling createDistributorBottle.");
+        return distributorService.createDistributorBottle(distributorId, bottleObject);
+    }
+
+    @PutMapping("/distributor/{distributorId}/bottles/{bottleId}")
+    public Bottle updateDistributorBottle(@PathVariable(value = "distributorId") Long distributorId,
+                                       @PathVariable(value = "bottleId") Long bottleId,
+                                       @RequestBody Bottle bottleObject) {
+        System.out.println("calling updateDistributorBottle.");
+        return distributorService.updateDistributorBottle(distributorId, bottleId, bottleObject);
+    }
+
+    @DeleteMapping("/distributor/{distributorId}/bottles/{bottleId}")
+    public ResponseEntity<HashMap> deleteDistributorBottle(
+            @PathVariable(value = "distributorId") Long distributorId, @PathVariable(value = "bottleId") Long bottleId) {
+        System.out.println("calling deleteDistributorBottle");
+        distributorService.deleteDistributorBottle(distributorId, bottleId);
+        HashMap responseMessage = new HashMap();
+        responseMessage.put("status", "bottle with id: " + bottleId + " was successfully deleted.");
+        return new ResponseEntity<HashMap>(responseMessage, HttpStatus.OK);
     }
 
 }

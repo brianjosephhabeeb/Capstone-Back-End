@@ -1,5 +1,9 @@
 package com.example.liquorapi.model;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "distributor")
@@ -12,6 +16,10 @@ public class Distributor {
 
     @Column
     private String distributorName;
+
+    @OneToMany(mappedBy = "distributor", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Bottle> bottleList;
 
     public Distributor(Long id, String distributorName) {
         this.id = id;
@@ -35,6 +43,14 @@ public class Distributor {
 
     public void setDistributorName(String distributorName) {
         this.distributorName = distributorName;
+    }
+
+    public List<Bottle> getBottleList() {
+        return bottleList;
+    }
+
+    public void setBottleList(List<Bottle> bottleList) {
+        this.bottleList = bottleList;
     }
 
     @Override
