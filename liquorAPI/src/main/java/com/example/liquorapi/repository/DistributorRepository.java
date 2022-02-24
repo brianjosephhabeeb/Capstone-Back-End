@@ -5,5 +5,5 @@ import com.example.liquorapi.model.Distributor;
 import java.util.List;
 
 public interface DistributorRepository extends JpaRepository<Distributor, Long> {
-    Distributor findByName(String distributorName);
+    Distributor findByDistributorName(String distributorName);
 }

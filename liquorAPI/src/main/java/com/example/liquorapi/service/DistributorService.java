@@ -37,7 +37,7 @@ public class DistributorService {
 
     public Distributor createDistributor(Distributor distributorObject) {
         System.out.println("service calling createDistributor.");
-        Distributor distributor = distributorRepository.findByName(distributorObject.getDistributorName());
+        Distributor distributor = distributorRepository.findByDistributorName(distributorObject.getDistributorName());
         if (distributor != null) {
             throw new InformationExistsException("Distributor with the name of " + distributor.getDistributorName() + " already exists.");
         } else {

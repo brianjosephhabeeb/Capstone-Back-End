@@ -1,11 +1,10 @@
 package com.example.liquorapi.controller;
-import com.example.liquorapi.exceptions.InformationExistsException;
-import com.example.liquorapi.exceptions.InformationNotFoundException;
 import com.example.liquorapi.model.Distributor;
-import com.example.liquorapi.repository.DistributorRepository;
 
 import com.example.liquorapi.service.DistributorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
