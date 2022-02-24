@@ -1,4 +1,5 @@
 package com.example.liquorapi.controller;
+import com.example.liquorapi.exceptions.InformationExistsException;
 import com.example.liquorapi.exceptions.InformationNotFoundException;
 import com.example.liquorapi.model.Distributor;
 import com.example.liquorapi.repository.DistributorRepository;
@@ -36,6 +37,15 @@ public class DistributorController {
         }
     }
 
-    
+    @PostMapping("/distributor/")
+    public Distributor createDistributor(@RequestBody Distributor distributorObject) {
+        System.out.println("Create distributor called.");
+        Distributor distributor = distributorRepository.findByName(distributorObject.getDistributorName());
+        if (distributor != null) {
+            throw new InformationExistsException("Distributor with the name " + distributor.getDistributorName() + " already exists in database.");
+        } else {
+            return distributorRepository.save(distributorObject);
+        }
+    }
 
 }
