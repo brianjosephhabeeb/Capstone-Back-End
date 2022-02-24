@@ -48,4 +48,34 @@ public class DistributorController {
         }
     }
 
+    @PutMapping("/distributot/{distributorId}")
+    public Distributor updateDistributor(@PathVariable(value = "distributorId") Long distributorId, @RequestBody Distributor distributorObject) {
+        System.out.println("Update distributor called");
+        Optional<Distributor> distributor = distributorRepository.findById(distributorId);
+        if (distributor.isPresent()){
+            if (distributorObject.getDistributorName().equals(distributor.get().getDistributorName())) {
+                System.out.println("Distributor with same name.");
+                throw new InformationExistsException("Distributor " + distributor.get().getDistributorName() + " already exists.");
+            } else {
+                Distributor updateDistributor = distributorRepository.getById(distributorId).get();
+                updateDistributor.setDistributorName(distributorObject.getDistributorName());
+                return distributorRepository.save(updateDistributor);
+            }
+        } else {
+            throw new InformationNotFoundException("Distributor with id " + distributorId + " not found in database.");
+        }
+    }
+
+    @DeleteMapping("/distributor/{distributorId}")
+    public Optional<Distributor> deleteDistributor(@PathVariable(value = "distributorId") Long distributorId){
+        System.out.println("Delete distributor called.");
+        Optional<Distributor> distributor = distributorRepository.findById(distributorId);
+        if (distributor.isPresent()) {
+            distributorRepository.deleteById(distributorId);
+            return distributor;
+        } else {
+            throw new InformationNotFoundException("Distributor with the id " + distributorId + " not found in database.");
+        }
+    }
+
 }
