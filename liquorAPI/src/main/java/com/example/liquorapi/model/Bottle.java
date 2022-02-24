@@ -3,11 +3,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "bottle")
+//Building out the table
 public class Bottle {
 
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//Primary Key
     private Long id;
 
     @Column
@@ -21,7 +22,7 @@ public class Bottle {
 
     @Column
     private int endingInventory;
-
+//Constructor for Bottle table
     public Bottle(Long id, String name, int startingInventory, int bottlesReceived, int endingInventory) {
         this.id = id;
         this.name = name;
@@ -32,7 +33,7 @@ public class Bottle {
 
     public Bottle() {
     }
-
+//getters and setters
     public Long getId() {
         return id;
     }
