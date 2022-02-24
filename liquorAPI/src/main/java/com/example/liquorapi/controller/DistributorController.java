@@ -4,6 +4,7 @@ import com.example.liquorapi.exceptions.InformationNotFoundException;
 import com.example.liquorapi.model.Distributor;
 import com.example.liquorapi.repository.DistributorRepository;
 
+import com.example.liquorapi.service.DistributorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,69 +14,40 @@ import java.util.Optional;
 @RequestMapping(path = "/api")
 public class DistributorController {
 
-    private DistributorRepository distributorRepository;
-
+private DistributorService distributorService;
     @Autowired
-    public void setDistributorRepository(DistributorRepository distributorRepository) {
-        this.distributorRepository = distributorRepository;
+    public void setDistributorService(DistributorService distributorService) {
+    this.distributorService = distributorService;
     }
 
     @GetMapping("/distributor")
-    public List<Distributor> getDistributor(){
-        System.out.println("getDistributor being called");
-        return distributorRepository.findAll();
+    public List<Distributor> getDistributors(){
+        System.out.println("getDistributors being called");
+        return distributorService.getDistributors();
     }
 
     @GetMapping(path = "/distributor/{distributorId}")
     public Optional getDistributor(@PathVariable Long distributorId){
         System.out.println("Get individual Distributor");
-        Optional distributor = distributorRepository.findById(distributorId);
-        if (distributor.isPresent()){
-            return distributor;
-        } else {
-            throw new InformationNotFoundException("Distributor with the id " + distributorId + " not found.");
-        }
+        return distributorService.getDistributor(distributorId);
     }
 
     @PostMapping("/distributor/")
     public Distributor createDistributor(@RequestBody Distributor distributorObject) {
         System.out.println("Create distributor called.");
-        Distributor distributor = distributorRepository.findByName(distributorObject.getDistributorName());
-        if (distributor != null) {
-            throw new InformationExistsException("Distributor with the name " + distributor.getDistributorName() + " already exists in database.");
-        } else {
-            return distributorRepository.save(distributorObject);
-        }
+        return distributorService.createDistributor(distributorObject);
     }
 
-    @PutMapping("/distributot/{distributorId}")
+    @PutMapping("/distributor/{distributorId}")
     public Distributor updateDistributor(@PathVariable(value = "distributorId") Long distributorId, @RequestBody Distributor distributorObject) {
         System.out.println("Update distributor called");
-        Optional<Distributor> distributor = distributorRepository.findById(distributorId);
-        if (distributor.isPresent()){
-            if (distributorObject.getDistributorName().equals(distributor.get().getDistributorName())) {
-                System.out.println("Distributor with same name.");
-                throw new InformationExistsException("Distributor " + distributor.get().getDistributorName() + " already exists.");
-            } else {
-                Distributor updateDistributor = distributorRepository.getById(distributorId).get();
-                updateDistributor.setDistributorName(distributorObject.getDistributorName());
-                return distributorRepository.save(updateDistributor);
-            }
-        } else {
-            throw new InformationNotFoundException("Distributor with id " + distributorId + " not found in database.");
-        }
+        return distributorService.updateDistributor(distributorId, distributorObject);
     }
 
     @DeleteMapping("/distributor/{distributorId}")
     public Optional<Distributor> deleteDistributor(@PathVariable(value = "distributorId") Long distributorId){
         System.out.println("Delete distributor called.");
-        Optional<Distributor> distributor = distributorRepository.findById(distributorId);
-        if (distributor.isPresent()) {
-            distributorRepository.deleteById(distributorId);
-            return distributor;
-        } else {
-            throw new InformationNotFoundException("Distributor with the id " + distributorId + " not found in database.");
-        }
+        return distributorService.deleteDistributor(distributorId);
     }
 
 }
