@@ -1,4 +1,5 @@
 package com.example.liquorapi.controller;
+import com.example.liquorapi.exceptions.InformationNotFoundException;
 import com.example.liquorapi.model.Distributor;
 import com.example.liquorapi.repository.DistributorRepository;
 
@@ -24,6 +25,17 @@ public class DistributorController {
         return distributorRepository.findAll();
     }
 
+    @GetMapping(path = "/distributor/{distributorId}")
+    public Optional getDistributor(@PathVariable Long distributorId){
+        System.out.println("Get individual Distributor");
+        Optional distributor = distributorRepository.findById(distributorId);
+        if (distributor.isPresent()){
+            return distributor;
+        } else {
+            throw new InformationNotFoundException("Distributor with the id " + distributorId + " not found.");
+        }
+    }
 
+    
 
 }
