@@ -17,13 +17,13 @@ public class Bottle {
     private String name;
 
     @Column
-    private int startingInventory;
+    private Integer startingInventory;
 
     @Column
-    private int bottlesReceived;
+    private Integer bottlesReceived;
 
     @Column
-    private int endingInventory;
+    private Integer endingInventory;
 
     @JsonIgnore
     @ManyToOne
@@ -31,13 +31,13 @@ public class Bottle {
     private Distributor distributor;
 
 //Constructor for Bottle table
-//    public Bottle(Long id, String name, int startingInventory, int bottlesReceived, int endingInventory) {
-//        this.id = id;
-//        this.name = name;
-//        this.startingInventory = startingInventory;
-//        this.bottlesReceived = bottlesReceived;
-//        this.endingInventory = endingInventory;
-//    }
+    public Bottle(Long id, String name, Integer startingInventory, Integer bottlesReceived, Integer endingInventory) {
+        this.id = id;
+        this.name = name;
+        this.startingInventory = startingInventory;
+        this.bottlesReceived = bottlesReceived;
+        this.endingInventory = endingInventory;
+    }
 
     public Bottle() {
     }
@@ -58,27 +58,27 @@ public class Bottle {
         this.name = name;
     }
 
-    public int getStartingInventory() {
+    public Integer getStartingInventory() {
         return startingInventory;
     }
 
-    public void setStartingInventory(int startingInventory) {
+    public void setStartingInventory(Integer startingInventory) {
         this.startingInventory = startingInventory;
     }
 
-    public int getBottlesReceived() {
+    public Integer getBottlesReceived() {
         return bottlesReceived;
     }
 
-    public void setBottlesReceived(int bottlesReceived) {
+    public void setBottlesReceived(Integer bottlesReceived) {
         this.bottlesReceived = bottlesReceived;
     }
 
-    public int getEndingInventory() {
+    public Integer getEndingInventory() {
         return endingInventory;
     }
 
-    public void setEndingInventory(int endingInventory) {
+    public void setEndingInventory(Integer endingInventory) {
         this.endingInventory = endingInventory;
     }
 
@@ -100,4 +100,6 @@ public class Bottle {
                 ", endingInventory=" + endingInventory +
                 '}';
     }
+
+
 }

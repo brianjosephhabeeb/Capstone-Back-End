@@ -50,17 +50,23 @@ private DistributorService distributorService;
         return distributorService.deleteDistributor(distributorId);
     }
 
+    @GetMapping("/bottles")
+    public List<Bottle> getBottles() {
+        System.out.println("getBottles being called");
+        return distributorService.getBottles();
+    }
+
     @GetMapping("/distributor/{distributorId}/bottles")
     public List<Bottle> getDistributorBottles(@PathVariable(value = "distributorId") Long distributorId) {
         System.out.println("calling getDistributorBottles.");
         return distributorService.getDistributorBottles(distributorId);
     }
 
-    @GetMapping("/distributor/{distributorId}/bottles/{bottleId}")
-    public Bottle getDistributorBottle(
-            @PathVariable(value = "distributorId") Long distributorId, @PathVariable(value = "bottleId") Long bottleId) {
-        System.out.println("calling getDistributorBottle.");
-        return distributorService.getDistributorBottle(distributorId, bottleId);
+    @GetMapping("/bottles/{bottleId}")
+    public Optional getBottle(
+            @PathVariable Long bottleId) {
+        System.out.println("calling getBottle.");
+        return distributorService.getBottle(bottleId);
     }
 
     @PostMapping("/distributor/{distributorId}/bottles")

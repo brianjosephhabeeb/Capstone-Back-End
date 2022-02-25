@@ -92,6 +92,11 @@ public class DistributorService {
         }
     }
 
+    public List<Bottle> getBottles() {
+        System.out.println("getBottles service being called for all bottles");
+        return bottleRepository.findAll();
+    }
+
     public List<Bottle> getDistributorBottles(Long distributorId) {
         System.out.println("Service calling getDistributorBottle.");
         Optional<Distributor> distributor = distributorRepository.findById(distributorId);
@@ -102,19 +107,15 @@ public class DistributorService {
         }
     }
 
-    public Bottle getDistributorBottle(Long distributorId, Long bottleId) {
-        System.out.println("Service calling getDistributorBottle.");
-        Optional<Distributor> distributor = distributorRepository.findById(distributorId);
-        if (distributor.isPresent()) {
-            Optional<Bottle> bottle = bottleRepository.findByDistributorId(distributorId).stream().filter(
-                    p -> p.getId().equals(bottleId)).findFirst();
-            if (bottle.isEmpty()) {
-                throw new InformationNotFoundException("Bottle with id " + bottleId + " not found.");
-            } else {
-                return bottle.get();
-            }
+
+
+    public Optional getBottle(Long bottleId){
+        System.out.println("getBottle service called for one bottle");
+        Optional bottle = bottleRepository.findById(bottleId);
+        if (bottle.isPresent()) {
+            return bottle;
         } else {
-            throw new InformationNotFoundException("Distributor with id " + distributorId + " not found.");
+            throw new InformationNotFoundException("Bottle with the id " + bottleId + " not found in database.");
         }
     }
 
