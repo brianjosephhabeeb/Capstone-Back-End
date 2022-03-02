@@ -3,7 +3,7 @@
 ## Table of Content
 1. [ Description ](#desc)
 2. [ Planning ](#plan)
-3. [ WireFrame ](#Wireframe)
+3. [ ERD ](#ERD)
 4. [ Technologies Used ](#Technologies-Used)
 5. [ Resources ](#Resources)
 6. [ Wins and Struggles ](#WinsandStruggles)
@@ -26,7 +26,7 @@ User Story
 - As a user, I would like to be able to view a list of distributors
 - As a user, I would like to see the bottles associated with a distributor
 
-<a name="Wireframe"></a>
+<a name="ERD"></a>
 ## 3. Wireframe
 
 ![Project 2](https://user-images.githubusercontent.com/94800802/155410321-ca912524-6756-4dab-9622-fca9118d999d.png)
