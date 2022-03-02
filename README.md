@@ -14,7 +14,7 @@
 - Create a back end application using intelliJ and Java.  I made a liquor store inventory system using full CRUD for managing a store's inventory.
 
 <a name="plan"></a>
-## 2. Plannin
+## 2. Planning
 
 User Story
 
@@ -27,7 +27,7 @@ User Story
 - As a user, I would like to see the bottles associated with a distributor
 
 <a name="ERD"></a>
-## 3. Wireframe
+## 3. ERD
 
 ![Project 2](https://user-images.githubusercontent.com/94800802/155410321-ca912524-6756-4dab-9622-fca9118d999d.png)
 
